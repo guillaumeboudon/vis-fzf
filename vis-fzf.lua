@@ -3,10 +3,10 @@ vis:command_register("fzf-rg", function(argv, force, win, selection, range)
   -- > Find occurrences of the arguments with ripgrep
   -- > Select one of the results with fzf
   -- > Parse the result with awk
-  local rg = "rg -n --column --color=always \"" .. table.concat(argv, " ") .. "\""
+  local rg = string.format("rg -n --column --color=always \"%s\"", table.concat(argv, " "))
   local fzf = "fzf --ansi"
   local awk = "awk -F: '{print $1, $2, $3}'"
-  local command = rg .. " | " .. fzf .. " | " .. awk
+  local command = table.concat({ rg, fzf, awk }, " | ")
 
   -- Execute the shell command
   local result = io.popen(command)
