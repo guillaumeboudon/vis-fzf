@@ -16,7 +16,7 @@ vis:command_register("fzf-rg", function(argv, force, win, selection, range)
   -- Open the chosen file at the correct cursor position
   if type(output) == "string" then
     local file, line, column = string.match(output, "([^%s]+) (%d+) (%d+)")
-    vis:feedkeys(":e " .. file .. "<Enter>")
+    vis:feedkeys(string.format(":e \"%s\"<Enter>", file))
     vis.win.selection:to(line, column)
   end
 
